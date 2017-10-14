@@ -1,0 +1,9 @@
+*/bin/
+*/obj/
+*/.vs/
+/Thumbs/
+data.json
+*.bak
+*.suo
+*.user
+*.sdf

@@ -1,0 +1,41 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:picThingy"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="picThingy.MainWindow"
+        mc:Ignorable="d"
+        Title="PicThingy" Height="500" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35*" MaxHeight="35"/>
+            <RowDefinition Height="405*"/>
+            <RowDefinition Height="30*" MaxHeight="30"/>
+        </Grid.RowDefinitions>
+        <Menu x:Name="menuMenuBar" Foreground="Gainsboro" Margin="0" Padding="0,8,0,0" RenderTransformOrigin="0.5,0.5">
+            <Menu.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF1E1E1E"/>
+                    <GradientStop Color="#FF1E1E1E" Offset="1"/>
+                    <GradientStop Color="#FF282828" Offset="0.5"/>
+                </LinearGradientBrush>
+            </Menu.Background>
+            <MenuItem Header="File">
+                <MenuItem x:Name="menuItemAddImage" Header="Add image" InputGestureText="Insert" Click="menuItemAddImage_Click" Foreground="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                <MenuItem x:Name="menuItemSaveDB" Header="Save Database" InputGestureText="CTRL+S" Click="menuItemSaveDB_Click" Foreground="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                <Separator Margin="0,2" HorizontalAlignment="Left" Width="203" Foreground="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                <MenuItem x:Name="menuItemSettings" Header="Settings" Click="menuItemSettings_Click" Foreground="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                <Separator HorizontalAlignment="Left" Width="203" Foreground="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                <MenuItem x:Name="menuItemExit" Header="Exit" Click="menuItemExit_Click" Foreground="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            </MenuItem>
+        </Menu>
+        <Label Content="Search query string:" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <TextBox x:Name="textBoxSearchQuery" Height="20" Margin="10,26,90,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <Button x:Name="buttonSearchGo" Content="Search" Margin="0,26,10,0" Grid.Row="1" VerticalAlignment="Top" Click="buttonSearchGo_Click" HorizontalAlignment="Right" Width="75"/>
+        <StatusBar Grid.Row="2">
+            <StatusBarItem x:Name="statusBarLabel" Content="Ready" Height="30" VerticalAlignment="Top"/>
+        </StatusBar>
+        <local:PicListControl x:Name="picList" Margin="10,51,10,5" Grid.Row="1"/>
+    </Grid>
+</Window>
