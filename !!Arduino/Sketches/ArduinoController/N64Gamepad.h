@@ -1,5 +1,4 @@
 #pragma once
-#include <PS2X_lib.h>
 #include <N64Controller.h>
 #include "Protocol.h"
 #include "Controller.h"

@@ -34,6 +34,9 @@ Controller *ctrl;
 void setup() {
     Serial.begin (250000);
 
+    pinMode (LED_BUILTIN, OUTPUT);
+    digitalWrite (LED_BUILTIN, LOW);
+    
     pinMode (A0, INPUT);
 
     if (true || analogRead (A0) > 25) {
