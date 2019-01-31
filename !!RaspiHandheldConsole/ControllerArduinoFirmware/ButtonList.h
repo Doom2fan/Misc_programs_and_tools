@@ -1,0 +1,15 @@
+/* Crimes. */
+DoButton (6, BTN_Button1);
+DoButton (8, BTN_Button2);
+DoButton (7, BTN_Button3);
+DoButton (9, BTN_Button4);
+DoButton (12, BTN_L1);
+DoButton (A4, BTN_R1);
+DoButton (A2, BTN_L2);
+DoButton (A3, BTN_R2);
+DoButton (10, BTN_Start);
+DoButton (11, BTN_Select);
+DoButton (4, BTN_POV_Up);
+DoButton (2, BTN_POV_Down);
+DoButton (3, BTN_POV_Left);
+DoButton (5, BTN_POV_Right);
