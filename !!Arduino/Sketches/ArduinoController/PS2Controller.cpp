@@ -47,10 +47,10 @@ void PS2Controller::DoSendInput () {
     ps2x.read_gamepad (motor1, motor2);
 
     int16_t buttons = GetButtonsBitfield ();
-    int16_t leftX  = ps2x.Analog (PSS_LX) * 257; //map (ps2x.Analog (PSS_LX), 0, 255, 0, 65535);
-    int16_t leftY  = ps2x.Analog (PSS_LY) * 257; //map (ps2x.Analog (PSS_LY), 0, 255, 0, 65535);
-    int16_t rightX = ps2x.Analog (PSS_RX) * 257; //map (ps2x.Analog (PSS_RX), 0, 255, 0, 65535);
-    int16_t rightY = ps2x.Analog (PSS_RY) * 257; //map (ps2x.Analog (PSS_RY), 0, 255, 0, 65535);
+    int16_t leftX  = map ((int16_t) ps2x.Analog (PSS_LX), 0, 255, 0, 65535);
+    int16_t leftY  = map ((int16_t) ps2x.Analog (PSS_LY), 0, 255, 0, 65535);
+    int16_t rightX = map ((int16_t) ps2x.Analog (PSS_RX), 0, 255, 0, 65535);
+    int16_t rightY = map ((int16_t) ps2x.Analog (PSS_RY), 0, 255, 0, 65535);
 
     SendInput (buttons, leftX, leftY, rightX, rightY);
 }

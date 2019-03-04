@@ -22,7 +22,7 @@ namespace vJoyArduinoController {
         public FormMain () {
             InitializeComponent ();
 
-            int defRateIndex = comboBoxBaudRate.Items.IndexOf ("250000");
+            int defRateIndex = comboBoxBaudRate.Items.IndexOf ("115200");
             comboBoxBaudRate.SelectedIndex = defRateIndex;
 
             UpdatePortsList ();
@@ -90,14 +90,15 @@ namespace vJoyArduinoController {
                 }
                 port.Write (new byte [] { (byte) ProtocolData.HostCodes.PollInput }, 0, 1);
 
-                int b = port.ReadByte ();
-                switch (b) {
-                    case (int) ProtocolData.SlaveCodes.Input:
+                while (port.BytesToRead >= ProtocolData.InputSize) {
+                    char [] header = new char [4];
+                    port.Read (header, 0, 4);
+
+                    if (String.Equals (header.ToString (), ProtocolData.HeaderChars.ToString ()))
                         ReadInput (ctrl, port);
-                        break;
                 }
 
-                Thread.Sleep (5); // Wait a bit before updating again...
+                Thread.Sleep (15); // Wait a bit before updating again...
             }
         }
 

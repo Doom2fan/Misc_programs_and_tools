@@ -9,9 +9,17 @@ namespace vJoyArduinoController {
          * All integers are little-endian.
         */
 
+        public const int InputSize = 4 + (5 * 2);
+        public static readonly char [] HeaderChars = {
+            'C',
+            'T',
+            'R',
+            'L',
+        };
+
         public enum HostCodes : byte {
             /* Input protocol:
-             * SC_Input - 1 byte
+             * Header - 4 byte - CTRL
              * Buttons bitfield - 2 bytes
              * Left analog X - 2 bytes [0-65535]
              * Left analog Y - 2 bytes [0-65535]

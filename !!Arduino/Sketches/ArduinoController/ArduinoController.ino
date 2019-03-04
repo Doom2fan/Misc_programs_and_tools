@@ -8,10 +8,10 @@
      - 2e colmun: Stef?
     replace pin numbers by the ones you use
  ******************************************************************/
-#define PS2_DAT        25
-#define PS2_CMD        24
-#define PS2_SEL        23
-#define PS2_CLK        22
+#define PS2_DAT        22
+#define PS2_CMD        23
+#define PS2_SEL        24
+#define PS2_CLK        25
 
 #define N64_DAT        22
 
@@ -32,20 +32,20 @@
 Controller *ctrl;
 
 void setup() {
-    Serial.begin (250000);
+    Serial.begin (115200);
 
     pinMode (LED_BUILTIN, OUTPUT);
     digitalWrite (LED_BUILTIN, LOW);
     
     pinMode (A0, INPUT);
 
-    if (true || analogRead (A0) > 25) {
+    //if (true || analogRead (A0) > 25) {
         ctrl = PS2Controller::Create (PS2_CLK, PS2_CMD, PS2_SEL, PS2_DAT, pressures, rumble);
-    } else if (analogRead (A1) > 25) {
+    /*} else if (analogRead (A1) > 25) {
         ctrl = N64Gamepad::Create (N64_DAT);
     } else {
         ctrl = nullptr;
-    }
+    }*/
 }
 
 void loop() {
