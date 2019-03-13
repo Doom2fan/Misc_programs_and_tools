@@ -4,14 +4,16 @@
 
 /******************************************************************
     set pins connected to PS2 controller:
-     - 1e column: original
-     - 2e colmun: Stef?
     replace pin numbers by the ones you use
  ******************************************************************/
-#define PS2_DAT        22
+/*#define PS2_DAT        22
 #define PS2_CMD        23
 #define PS2_SEL        24
-#define PS2_CLK        25
+#define PS2_CLK        25*/
+#define PS2_DAT        13  //14    
+#define PS2_CMD        11  //15
+#define PS2_SEL        10  //16
+#define PS2_CLK        12  //17
 
 #define N64_DAT        22
 

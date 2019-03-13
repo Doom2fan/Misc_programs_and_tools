@@ -17,5 +17,6 @@ class PS2Controller : public Controller {
         int16_t GetButtonsBitfield ();
 
     public:
+        virtual void Update ();
         static PS2Controller *Create (int clkPin, int cmdPin, int selPin, int dataPin, bool pressures, bool rumble);
 };

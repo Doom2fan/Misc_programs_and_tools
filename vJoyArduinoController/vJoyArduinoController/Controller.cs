@@ -121,7 +121,8 @@ namespace vJoyArduinoController {
                 //if (disposing) { }
 
                 if (Initialized) { // Must release the controller
-                    vJoy.RelinquishDev ((int) handle);
+                    //vJoy.RelinquishDev ((int) handle);
+                    vJoy.RelinquishVJD (handle);
                 }
 
                 disposedValue = true;

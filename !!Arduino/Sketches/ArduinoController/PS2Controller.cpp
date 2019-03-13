@@ -44,7 +44,7 @@ void PS2Controller::SetRumble (byte m1, byte m2) {
 }
 
 void PS2Controller::DoSendInput () {
-    ps2x.read_gamepad (motor1, motor2);
+    //ps2x.read_gamepad (motor1, motor2);
 
     int16_t buttons = GetButtonsBitfield ();
     int16_t leftX  = map ((int16_t) ps2x.Analog (PSS_LX), 0, 255, 0, 65535);
@@ -76,4 +76,9 @@ int16_t PS2Controller::GetButtonsBitfield () {
     if (ps2x.Button (PSB_PAD_RIGHT)) buttons |= (1 << BTN_POV_Right);
 
     return buttons;
+}
+
+void PS2Controller::Update () {
+    ps2x.read_gamepad (motor1, motor2);
+    Controller::Update ();
 }

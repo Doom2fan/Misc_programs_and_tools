@@ -79,26 +79,39 @@ namespace vJoyArduinoController {
                 return;
             }
 
+            Stopwatch timer = new Stopwatch ();
+            timer.Start ();
+            bool waitingForResponse = false;
+
             while (port.IsOpen) {
                 if (info.abort) {
-                    ctrl.Dispose ();
+                    if (ctrl != null)
+                        ctrl.Dispose ();
+                    ctrl = null;
+
                     if (port != null) {
+                        port.Close ();
                         port.Dispose ();
                     }
 
+                    info.form.ControllerDone ();
+
                     return;
                 }
-                port.Write (new byte [] { (byte) ProtocolData.HostCodes.PollInput }, 0, 1);
+                if (!waitingForResponse && timer.ElapsedMilliseconds >= 15) {
+                    port.Write (new byte [] { (byte) ProtocolData.HostCodes.PollInput }, 0, 1);
+                    waitingForResponse = true;
+                }
 
                 while (port.BytesToRead >= ProtocolData.InputSize) {
                     char [] header = new char [4];
                     port.Read (header, 0, 4);
 
-                    if (String.Equals (header.ToString (), ProtocolData.HeaderChars.ToString ()))
+                    if (String.Equals (header.ToString (), ProtocolData.HeaderChars.ToString ())) {
                         ReadInput (ctrl, port);
+                        waitingForResponse = false;
+                    }
                 }
-
-                Thread.Sleep (15); // Wait a bit before updating again...
             }
         }
 
@@ -140,15 +153,15 @@ namespace vJoyArduinoController {
             ctrl.Update (leftX, leftY, rightX, rightY, (uint) (buttons & 0x0FFF), pov); // Update the controller.
         }
 
-        private delegate void ControlDoneDlg ();
         public void ControllerDone () {
-            if (this.InvokeRequired)
-                this.Invoke (new ControlDoneDlg (ControllerDone));
-            else {
-                this.startToolStripMenuItem.Text = "Start";
-                this.buttonToggle.Text = "Start";
-                controllerRunning = false;
+            if (this.InvokeRequired) {
+                this.Invoke (new Action (ControllerDone));
+                return;
             }
+
+            this.startToolStripMenuItem.Text = "Start";
+            this.buttonToggle.Text = "Start";
+            controllerRunning = false;
         }
 
         private bool StartController () {
@@ -179,15 +192,14 @@ namespace vJoyArduinoController {
             return true;
         }
 
-        private bool StopController () {
+        private void StopController () {
             if (!controllerRunning)
-                return false;
+                return;
 
             if (ctrlThread != null && ctrlThread.Item1 != null)
                 ctrlThread.Item2.abort = true;
-            controllerRunning = false;
 
-            return true;
+            controllerRunning = false;
         }
 
         private void ToggleController () {
@@ -196,12 +208,8 @@ namespace vJoyArduinoController {
                     this.startToolStripMenuItem.Text = "Stop";
                     this.buttonToggle.Text = "Stop";
                 }
-            } else {
-                if (StopController ()) {
-                    this.startToolStripMenuItem.Text = "Start";
-                    this.buttonToggle.Text = "Start";
-                }
-            }
+            } else
+                StopController ();
         }
 
         private void startToolStripMenuItem_Click (object sender, EventArgs e) { ToggleController (); }
