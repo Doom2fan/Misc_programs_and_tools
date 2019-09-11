@@ -10,10 +10,10 @@
 #define PS2_CMD        23
 #define PS2_SEL        24
 #define PS2_CLK        25*/
-#define PS2_DAT        13  //14    
-#define PS2_CMD        11  //15
-#define PS2_SEL        10  //16
-#define PS2_CLK        12  //17
+#define PS2_DAT        7
+#define PS2_CMD        6
+#define PS2_SEL        5
+#define PS2_CLK        4
 
 #define N64_DAT        22
 
@@ -39,13 +39,13 @@ void setup() {
     pinMode (LED_BUILTIN, OUTPUT);
     digitalWrite (LED_BUILTIN, LOW);
     
-    pinMode (A0, INPUT);
+    //pinMode (A0, INPUT);
 
     //if (true || analogRead (A0) > 25) {
         ctrl = PS2Controller::Create (PS2_CLK, PS2_CMD, PS2_SEL, PS2_DAT, pressures, rumble);
-    /*} else if (analogRead (A1) > 25) {
-        ctrl = N64Gamepad::Create (N64_DAT);
-    } else {
+    //} else if (analogRead (A1) > 25) {
+        //ctrl = N64Gamepad::Create (N64_DAT);
+    /*} else {
         ctrl = nullptr;
     }*/
 }
